@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>믿글컴퍼니 — 사업의 기준과 방향을 세웁니다</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --navy: #1E2370;
+      --mint: #3DFFC0;
+      --navy-light: #2A3190;
+      --navy-dark: #161A55;
+      --text-main: #ffffff;
+      --text-sub: rgba(255,255,255,0.6);
+      --text-muted: rgba(255,255,255,0.35);
+      --border: rgba(255,255,255,0.1);
+    }
+    body { font-family: 'Noto Sans KR', sans-serif; background: var(--navy); color: var(--text-main); line-height: 1.7; }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2rem;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--navy);
+      z-index: 10;
+    }
+    .logo { font-family: 'Noto Serif KR', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.05em; color: var(--text-main); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 13px; color: var(--text-sub); text-decoration: none; letter-spacing: 0.03em; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--mint); }
+
+    .hero { padding: 6rem 2rem 5rem; max-width: 720px; margin: 0 auto; border-bottom: 0.5px solid var(--border); }
+    .hero-tag { font-size: 11px; letter-spacing: 0.15em; color: var(--mint); margin-bottom: 2rem; text-transform: uppercase; }
+    .hero-title { font-family: 'Noto Serif KR', serif; font-size: 38px; font-weight: 400; line-height: 1.6; margin-bottom: 2rem; }
+    .hero-title em { font-style: normal; color: var(--mint); border-bottom: 1.5px solid var(--mint); }
+    .hero-desc { font-size: 15px; line-height: 1.9; color: var(--text-sub); max-width: 480px; margin-bottom: 3rem; }
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.85rem 1.75rem;
+      border: 1px solid var(--mint);
+      font-size: 13px;
+      cursor: pointer;
+      background: transparent;
+      color: var(--mint);
+      font-family: 'Noto Sans KR', sans-serif;
+      letter-spacing: 0.03em;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .hero-cta:hover { background: var(--mint); color: var(--navy); }
+
+    .section { padding: 4rem 2rem; max-width: 720px; margin: 0 auto; border-bottom: 0.5px solid var(--border); }
+    .section-label { font-size: 11px; letter-spacing: 0.15em; color: var(--mint); margin-bottom: 2rem; text-transform: uppercase; }
+    .section-title { font-family: 'Noto Serif KR', serif; font-size: 24px; font-weight: 400; line-height: 1.6; margin-bottom: 1.5rem; }
+
+    .problems { display: flex; flex-direction: column; }
+    .problem-item { padding: 1.25rem 0; border-bottom: 0.5px solid var(--border); font-size: 14px; color: var(--text-sub); line-height: 1.7; display: flex; gap: 1rem; align-items: flex-start; }
+    .problem-item:last-child { border-bottom: none; }
+    .problem-num { font-size: 11px; color: var(--mint); letter-spacing: 0.1em; min-width: 20px; padding-top: 2px; }
+
+    .services { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 0.5px solid var(--border); margin-top: 2rem; }
+    .service-card { background: var(--navy-light); padding: 2rem 1.5rem; }
+    .service-step { font-size: 11px; letter-spacing: 0.1em; color: var(--mint); margin-bottom: 1rem; }
+    .service-name { font-family: 'Noto Serif KR', serif; font-size: 17px; font-weight: 400; margin-bottom: 0.75rem; line-height: 1.6; }
+    .service-desc { font-size: 13px; color: var(--text-sub); line-height: 1.8; margin-bottom: 1.5rem; }
+    .service-items { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .service-items li { font-size: 12px; color: var(--text-muted); padding-left: 1rem; position: relative; }
+    .service-items li::before { content: '—'; position: absolute; left: 0; color: var(--mint); }
+
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+    .fit-col-title { font-size: 12px; letter-spacing: 0.1em; color: var(--mint); margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 0.5px solid var(--border); }
+    .fit-item { font-size: 13px; color: var(--text-sub); line-height: 1.7; padding: 0.75rem 0; border-bottom: 0.5px solid var(--border); }
+    .fit-item:last-child { border-bottom: none; }
+
+    .cta-section { padding: 6rem 2rem; max-width: 720px; margin: 0 auto; text-align: center; }
+    .cta-title { font-family: 'Noto Serif KR', serif; font-size: 28px; font-weight: 400; line-height: 1.7; margin-bottom: 1.5rem; }
+    .cta-title em { font-style: normal; color: var(--mint); }
+    .cta-desc { font-size: 14px; color: var(--text-sub); line-height: 1.9; margin-bottom: 2.5rem; }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 1rem 2.5rem;
+      background: var(--mint);
+      color: var(--navy);
+      font-size: 13px;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      letter-spacing: 0.05em;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      border: none;
+    }
+    .cta-btn:hover { opacity: 0.85; }
+
+    .footer { padding: 2rem; border-top: 0.5px solid var(--border); font-size: 12px; color: var(--text-muted); display: flex; justify-content: space-between; align-items: center; max-width: 720px; margin: 0 auto; }
+    .footer a { color: var(--text-muted); text-decoration: none; }
+    .footer a:hover { color: var(--mint); }
+
+    @media (max-width: 600px) {
+      .hero-title { font-size: 28px; }
+      .services { grid-template-columns: 1fr; }
+      .fit-grid { grid-template-columns: 1fr; }
+      .nav-links { gap: 1rem; }
+      .footer { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="logo">믿글컴퍼니</div>
+    <div class="nav-links">
+      <a href="#service">서비스</a>
+      <a href="#about">소개</a>
+      <a href="http://pf.kakao.com/_ftVan" target="_blank">문의</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <p class="hero-tag">Mitgeul Company · 2026</p>
+    <h1 class="hero-title">대표님의 사업을<br><em>한 문장으로</em><br>말할 수 있습니까?</h1>
+    <p class="hero-desc">AI는 정보를 대신해도 사업의 기준까지 대신해주진 않습니다. 믿글은 마케팅을 더 할지 고민하기 전에 기준이 있는지부터 먼저 정리합니다.</p>
+    <a href="http://pf.kakao.com/_ftVan" target="_blank" class="hero-cta">카카오톡으로 기준 점검하기 →</a>
+  </section>
+
+  <section class="section">
+    <p class="section-label">이런 문제에서 시작합니다</p>
+    <div class="problems">
+      <div class="problem-item"><span class="problem-num">01</span><span>블로그는 꾸준히 쓰고 있는데 이 방향이 맞는지 확신이 들지 않는다</span></div>
+      <div class="problem-item"><span class="problem-num">02</span><span>더 해야 할 것 같아 불안하지만, 무엇을 더 해야 하는지는 잘 모르겠다</span></div>
+      <div class="problem-item"><span class="problem-num">03</span><span>대행이나 마케팅 강의를 찾아보지만, 지금 내 상태에 맞는 선택인지 계속 헷갈린다</span></div>
+      <div class="problem-item"><span class="problem-num">04</span><span>마케팅을 하고는 있지만 기준 없이 끌려가는 느낌이 든다</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="service">
+    <p class="section-label">2026 믿글마케팅 서비스</p>
+    <h2 class="section-title">사업의 기준과<br>방향을 세웁니다</h2>
+    <div class="services">
+      <div class="service-card">
+        <p class="service-step">STEP 1</p>
+        <h3 class="service-name">기준 점검<br>(자가진단)</h3>
+        <p class="service-desc">진단 질문을 통해 현재 사업 구조를 점검하고, 결과와 개선 방향을 확인하는 과정</p>
+        <ul class="service-items">
+          <li>기준 점검 질문지</li>
+          <li>질문 결과 리포트</li>
+          <li>플레이스 진단지</li>
+          <li>플레이스 진단 결과</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <p class="service-step">STEP 2</p>
+        <h3 class="service-name">기준 설계<br>(집중 10일)</h3>
+        <p class="service-desc">STEP 1의 결과를 바탕으로 기준 설계 심화 질문과 함께 밀착 진행하는 프로그램</p>
+        <ul class="service-items">
+          <li>기준 설계 PDF 제공</li>
+          <li>기준 설계 심화 질문</li>
+          <li>사업 기준 문장 설계</li>
+          <li>콘텐츠 방향 정리</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <p class="section-label">믿글마케팅의 기준</p>
+    <div class="fit-grid">
+      <div>
+        <p class="fit-col-title">이런 경우는 잘 맞습니다</p>
+        <div class="fit-item">블로그는 꾸준히 하고 있지만 방향이 맞는지 확신이 없는 경우</div>
+        <div class="fit-item">무엇을 더 해야 할지보다 하지 않아도 될 것을 알고 싶은 경우</div>
+        <div class="fit-item">단기 성과보다 흔들리지 않는 운영 기준을 만들고 싶은 경우</div>
+      </div>
+      <div>
+        <p class="fit-col-title">이런 경우는 맞지 않습니다</p>
+        <div class="fit-item">블로그 글 작성, 운영 대행을 원하는 경우</div>
+        <div class="fit-item">즉각적인 노출·유입·문의 수치가 급한 경우</div>
+        <div class="fit-item">이미 정해진 답을 확인받고 싶은 경우</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <h2 class="cta-title">"대표님의 사업을<br><em>한 문장으로</em><br>설명할 수 있습니까"</h2>
+    <p class="cta-desc">사업의 기준과 방향을 세웁니다</p>
+    <a href="http://pf.kakao.com/_ftVan" target="_blank" class="cta-btn">카카오톡으로 기준 점검하기 →</a>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 믿글컴퍼니</span>
+    <span>
+      <a href="#">이용약관</a> · <a href="#">개인정보처리방침</a>
+    </span>
+  </footer>
+
+</body>
+</html>
