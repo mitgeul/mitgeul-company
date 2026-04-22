@@ -614,20 +614,22 @@
   .nav-link:hover { color: var(--gold); }
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .problem-grid,
-    .what-inner,
-    .process-steps,
-    .why-grid { grid-template-columns: 1fr; }
-
-    .process-steps::before { display: none; }
-    .step { padding: 0; margin-bottom: 36px; }
-
-    .what-aside { position: static; }
-    section { padding: 72px 6vw; }
-    nav { padding: 16px 6vw; }
-    .cta-band { flex-direction: column; text-align: center; }
-  }
+ @media (max-width: 600px) {
+  section { padding: 60px 6vw; }
+  .hero h1 { font-size: 2rem; }
+  .hero-desc { font-size: 0.95rem; }
+  .problem-grid,
+  .what-inner,
+  .why-grid { grid-template-columns: 1fr; }
+  .what-aside { position: static; }
+  .process-steps { grid-template-columns: 1fr 1fr; }
+  .cta-band { flex-direction: column; text-align: center; }
+  nav { padding: 14px 6vw; }
+  .nav-logo { font-size: 0.95rem; }
+  footer { padding: 2rem 6vw; }
+  footer > div:first-child { flex-direction: column; }
+  footer > div:first-child > div:last-child { text-align: left; }
+}
 </style>
 </head>
 <body>
