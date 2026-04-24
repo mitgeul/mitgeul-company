@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>프리미엄 블로그마케팅 이용권 결제 — 믿글컴퍼니</title>
+  <title>프리미엄 블로그마케팅 할인권 결제 — 믿글컴퍼니</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -59,14 +59,14 @@
 </head>
 <body>
   <div class="card">
-    <p class="label">MITGEUL · 프리미엄 블로그마케팅 이용권</p>
-    <h1>프리미엄 블로그마케팅<br>대행 1편 이용권</h1>
-    <p class="desc">진단 결과 저장 혜택으로 발급된 이용권입니다.</p>
+    <p class="label">MITGEUL · 프리미엄 블로그마케팅 할인권</p>
+    <h1>프리미엄 블로그마케팅<br>대행 1편 할인권</h1>
+    <p class="desc">진단 결과 저장 혜택으로 발급된 할인권입니다.</p>
 
     <div class="coupon-box">
       <p class="coupon-title">🎁 파일럿 한정 혜택 적용</p>
       <p class="coupon-desc">
-        11만원 상당 블로그마케팅 1건을 5만원에 이용<br>
+        프리미엄 블로그마케팅 5만원 할인<br>
         발급 기한: 2026년 6월 30일까지<br>
         사용 기한: 2026년 12월 30일까지
       </p>
@@ -75,9 +75,9 @@
     <div class="price-box">
       <p class="price-original">정가 121,000원</p>
       <div class="price-row">
-        <span class="price-amount">50,000원</span>
+        <span class="price-amount">71,000원</span>
         <span class="price-unit">· 부가세 포함</span>
-        <span class="price-save">71,000원 할인</span>
+        <span class="price-save">50,000원 할인</span>
       </div>
     </div>
 
@@ -128,7 +128,7 @@
           method: "CARD",
           amount: { currency: "KRW", value: 50000 },
           orderId: orderId,
-          orderName: "프리미엄 블로그마케팅 대행 1편 이용권 (파일럿 특가)",
+          orderName: "프리미엄 블로그마케팅 5만원 할인권 (파일럿 특가)",
           customerName: customerName,
           successUrl: window.location.origin + "/coupon-success.html?orderId=" + orderId + "&name=" + encodeURIComponent(customerName),
           failUrl: window.location.origin + "/blog-coupon-payment.html?fail=1",
@@ -136,7 +136,7 @@
       } catch (e) {
         console.error(e);
         btn.disabled = false;
-        btn.textContent = "50,000원 결제하기";
+        btn.textContent = "71,000원 결제하기";
         if (e.code !== "USER_CANCEL") {
           alert("결제 중 오류가 발생했습니다. 다시 시도해주세요.");
         }
