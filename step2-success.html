@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>결제 완료 — 믿글컴퍼니</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Pretendard', sans-serif;
+      background: #f9f9f7;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 40px 32px;
+      max-width: 420px;
+      width: 100%;
+      border: 1px solid #ebebeb;
+      text-align: center;
+    }
+    .icon { font-size: 36px; margin-bottom: 20px; }
+    h1 {
+      font-size: 20px;
+      font-weight: 500;
+      color: #1a1a1a;
+      margin-bottom: 10px;
+    }
+    .desc {
+      font-size: 14px;
+      color: #666;
+      line-height: 1.7;
+      margin-bottom: 28px;
+    }
+    .info-box {
+      background: #f9f9f7;
+      border-radius: 10px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      padding: 5px 0;
+      border-top: 1px solid #eee;
+      color: #555;
+    }
+    .info-row:first-child { border-top: none; }
+    .info-row span:last-child { font-weight: 500; color: #1a1a1a; }
+    .kakao-box {
+      background: #FEE500;
+      border-radius: 10px;
+      padding: 14px 20px;
+      font-size: 13px;
+      color: #3A1D1D;
+      font-weight: 500;
+    }
+    .order-info {
+      font-size: 11px;
+      color: #bbb;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="icon">✅</div>
+    <h1>결제가 완료되었습니다</h1>
+    <p class="desc">
+      <span id="customer-name-text">대표님</span>, 함께하게 되어 반갑습니다.<br>
+      카카오톡으로 온보딩 안내를 드리겠습니다.
+    </p>
+
+    <div class="info-box">
+      <div class="info-row">
+        <span>서비스</span>
+        <span>STEP 2 · 기준 설계 (집중 10일)</span>
+      </div>
+      <div class="info-row">
+        <span>진행 방식</span>
+        <span>1:1 비대면 · 카카오톡 소통</span>
+      </div>
+      <div class="info-row">
+        <span>소통 횟수</span>
+        <span>3회 (각 30분)</span>
+      </div>
+      <div class="info-row">
+        <span>결제 금액</span>
+        <span>1,100,000원</span>
+      </div>
+    </div>
+
+    <div class="kakao-box">
+      💬 카카오톡 채널 · 믿글마케팅에서 곧 연락드립니다
+    </div>
+
+    <p class="order-info" id="order-info"></p>
+    <p class="privacy-note" style="font-size:11px;color:#bbb;margin-top:12px;line-height:1.7;text-align:center;">본 결제는 토스페이먼츠(주)를 통해 처리되며,<br>결제 처리 목적으로 성명·결제 수단 정보가 제공됩니다.<br><a href="https://mitgeul.co.kr/terms.html" style="color:#bbb;">이용약관</a> · <a href="https://mitgeul.co.kr/privacy.html" style="color:#bbb;">개인정보처리방침</a></p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(location.search);
+    const name = params.get("name") || "";
+    const orderId = params.get("orderId") || "";
+    if (name) {
+      document.getElementById("customer-name-text").textContent = decodeURIComponent(name) + " 대표님";
+    }
+    if (orderId) {
+      document.getElementById("order-info").textContent = "주문번호: " + orderId;
+    }
+  </script>
+</body>
+</html>
