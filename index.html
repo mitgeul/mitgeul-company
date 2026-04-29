@@ -232,44 +232,6 @@
     }
     .cta-btn:hover { opacity: 0.85; }
 
-    /* ── 모바일 ── */
-    @media (max-width: 640px) {
-      .nav { padding: 1rem 1.25rem; gap: 0.75rem; }
-      .nav-links { gap: 0.75rem; }
-      .nav-links a { font-size: 14px; }
-
-      .hero { padding: 3.5rem 1.25rem 3rem; }
-      .hero-title { font-size: 32px; }
-      .hero-desc { font-size: 17px; }
-      .hero-cta { font-size: 15px; padding: 0.9rem 1.5rem; }
-
-      .section { padding: 3rem 1.25rem; }
-      .section-title { font-size: 26px; }
-      .problem-item { font-size: 17px; }
-
-      /* 서비스 박스 내부 그리드 → 1열 */
-      .service-inner-grid { grid-template-columns: 1fr; gap: 1.5rem; }
-
-      /* STEP1 버튼 */
-      .step1-btn { font-size: 14px; padding: 1rem 1.25rem; }
-
-      /* 미리보기 */
-      .preview-wrap { padding: 1.25rem 1rem; }
-      .preview-cols { grid-template-columns: 1fr; gap: 1rem; }
-      .preview-cta-row { flex-direction: column; align-items: stretch; }
-      .preview-cta-btn { width: 100%; text-align: center; }
-      .preview-heading { font-size: 16px; }
-
-      /* 맞습니다 그리드 → 1열 */
-      .fit-grid { grid-template-columns: 1fr; }
-      .fit-item { font-size: 16px; }
-
-      .cta-section { padding: 3.5rem 1.25rem; }
-      .cta-title { font-size: 28px; }
-      .cta-desc { font-size: 17px; }
-      .cta-btn { font-size: 15px; padding: 1rem 1.5rem; }
-    }
-
     /* ── 결제 섹션 ── */
     .payment-wrap {
       margin-top: 1.5rem;
@@ -394,34 +356,69 @@
       line-height: 1.6;
     }
 
+    /* ── 히어로 페이드업 애니메이션 (수정: keyframes 선언 복구) ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .hero-tag   { opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
+    .hero-title { opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
+    .hero-desc  { opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
+    .hero-cta   { opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
+
+    /* ── 모바일 ── */
     @media (max-width: 640px) {
+      .nav { padding: 1rem 1.25rem; gap: 0.75rem; }
+      .nav-links { gap: 0.75rem; }
+      .nav-links a { font-size: 14px; }
+
+      .hero { padding: 3.5rem 1.25rem 3rem; }
+      .hero-title { font-size: 32px; }
+      .hero-desc { font-size: 17px; }
+      .hero-cta { font-size: 15px; padding: 0.9rem 1.5rem; }
+
+      .section { padding: 3rem 1.25rem; }
+      .section-title { font-size: 26px; }
+      .problem-item { font-size: 17px; }
+
+      .service-inner-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .step1-btn { font-size: 14px; padding: 1rem 1.25rem; }
+
+      .preview-wrap { padding: 1.25rem 1rem; }
+      .preview-cols { grid-template-columns: 1fr; gap: 1rem; }
+      .preview-cta-row { flex-direction: column; align-items: stretch; }
+      .preview-cta-btn { width: 100%; text-align: center; }
+      .preview-heading { font-size: 16px; }
+
+      .fit-grid { grid-template-columns: 1fr; }
+      .fit-item { font-size: 16px; }
+
+      .cta-section { padding: 3.5rem 1.25rem; }
+      .cta-title { font-size: 28px; }
+      .cta-desc { font-size: 17px; }
+      .cta-btn { font-size: 15px; padding: 1rem 1.5rem; }
+
       .payment-price-row { gap: 0.5rem; }
       .payment-price-num { font-size: 18px; }
       .payment-price-num.muted { font-size: 15px; }
       .payment-price-arrow { font-size: 13px; }
       .payment-cta-btn { font-size: 15px; }
     }
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-    .hero-tag { opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s; }
-    .hero-title { opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s; }
-    .hero-desc { opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s; }
-    .hero-cta { opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s; }
   </style>
 </head>
 <body>
 
   <nav class="nav">
     <a href="#" style="text-decoration:none;display:flex;align-items:center;gap:10px;">
-      <img src="logo.png" alt="믿글" style="height:36px;width:36px;border-radius:8px;">
+      <img src="logo.png" alt="믿글 로고" style="height:36px;width:36px;border-radius:8px;">
       <span class="logo">mitgeul</span>
     </a>
     <div class="nav-links">
       <a href="#">홈</a>
       <a href="#service">서비스</a>
-      <a href="blog-marketing">블로그마케팅</a>
-      <a href="http://pf.kakao.com/_ftVan" target="_blank">문의</a>
+      <a href="blog-marketing.html">블로그마케팅</a>
+      <!-- [확인 필요] blog-marketing.html 파일이 존재하는지 확인 후 경로 수정 -->
+      <a href="https://pf.kakao.com/_ftVan" target="_blank" rel="noopener noreferrer">문의</a>
     </div>
   </nav>
 
@@ -429,7 +426,7 @@
     <p class="hero-tag">Mitgeul Company · 2026</p>
     <h1 class="hero-title">대표님의 사업을<br><em>한 문장으로</em><br>말할 수 있습니까?</h1>
     <p class="hero-desc">사업을 시작했는데 아직 기준이 없다면, 마케팅보다 먼저 사업의 기준부터 세워야 합니다. AI는 정보를 대신해도 사업의 기준까지 대신해주진 않습니다. 믿글은 마케팅을 더 할지 고민하기 전에 기준이 있는지부터 먼저 정리합니다.</p>
-    <a href="http://pf.kakao.com/_ftVan" target="_blank" class="hero-cta">카카오톡 채널로 상담 신청하기 →</a>
+    <a href="https://pf.kakao.com/_ftVan" target="_blank" rel="noopener noreferrer" class="hero-cta">카카오톡 채널로 상담 신청하기 →</a>
   </section>
 
   <section class="section">
@@ -476,18 +473,14 @@
 
     <!-- STEP 1 결제 + 진행 안내 -->
     <div class="payment-wrap">
-
-      <!-- 가격 로드맵 -->
       <div class="payment-price-row">
         <div class="payment-price-item current">
           <span class="payment-price-badge">파일럿 특가 5월 한정</span>
           <span class="payment-price-num">30,000원</span>
           <span class="payment-price-desc">지금 바로 시작</span>
         </div>
-    
       </div>
 
-        <!-- 진행 순서 -->
       <div class="payment-steps">
         <div class="payment-step">
           <span class="payment-step-num">01</span>
@@ -511,89 +504,48 @@
           </div>
         </div>
       </div>
-<!-- CTA 버튼 -->
-      <a href="https://ai.mitgeul.co.kr" target="_blank" class="payment-cta-btn">
+
+      <a href="https://ai.mitgeul.co.kr" target="_blank" rel="noopener noreferrer" class="payment-cta-btn">
         STEP 1. 사업 기준 · 매장 자가진단 시스템 바로가기 →
       </a>
-      <p class="payment-cta-sub">결제 후 접근 코드를 받아 <a href="https://ai.mitgeul.co.kr/" target="_blank" style="color:var(--mint);text-decoration:none;">ai.mitgeul.co.kr</a>에서 진단을 진행합니다</p>
+      <p class="payment-cta-sub">결제 후 접근 코드를 받아 <a href="https://ai.mitgeul.co.kr/" target="_blank" rel="noopener noreferrer" style="color:var(--mint);text-decoration:none;">ai.mitgeul.co.kr</a>에서 진단을 진행합니다</p>
     </div>
 
-    <!-- ── 진단 미리보기 섹션 ── -->
+    <!-- 진단 미리보기 섹션 -->
     <div class="preview-wrap">
       <p class="preview-intro">STEP 1. 사업 기준 · 매장 자가진단 미리보기</p>
       <p class="preview-heading">이런 항목을 점검합니다 — 전체 진단은 결제 후 진행됩니다</p>
 
       <div class="preview-cols">
-        <!-- 플레이스 자가진단 -->
         <div class="preview-col">
           <p class="preview-col-label">플레이스 자가진단</p>
-
-          <div class="preview-item">
-            <span class="icon">✅</span>
-            <span>대표 사진이 선명하게 보이나요?</span>
-          </div>
-          <div class="preview-item">
-            <span class="icon">✅</span>
-            <span>소개글이 300자 이상인가요?</span>
-          </div>
-          <div class="preview-item">
-            <span class="icon">✅</span>
-            <span>영업시간·전화번호가 정확히 등록돼 있나요?</span>
-          </div>
-          <div class="preview-item locked">
-            <span class="icon">🔒</span>
-            <span>리뷰가 최근 3개월 내 올라오나요?</span>
-          </div>
-          <div class="preview-item locked">
-            <span class="icon">🔒</span>
-            <span>부정 리뷰에 답글이 달려있나요?</span>
-          </div>
-          <div class="preview-item locked">
-            <span class="icon">🔒</span>
-            <span>블로그 리뷰가 10건 이상인가요?</span>
-          </div>
+          <div class="preview-item"><span class="icon">✅</span><span>대표 사진이 선명하게 보이나요?</span></div>
+          <div class="preview-item"><span class="icon">✅</span><span>소개글이 300자 이상인가요?</span></div>
+          <div class="preview-item"><span class="icon">✅</span><span>영업시간·전화번호가 정확히 등록돼 있나요?</span></div>
+          <div class="preview-item locked"><span class="icon">🔒</span><span>리뷰가 최근 3개월 내 올라오나요?</span></div>
+          <div class="preview-item locked"><span class="icon">🔒</span><span>부정 리뷰에 답글이 달려있나요?</span></div>
+          <div class="preview-item locked"><span class="icon">🔒</span><span>블로그 리뷰가 10건 이상인가요?</span></div>
           <p class="preview-more">+ 14개 항목 더 있음</p>
         </div>
-
-        <!-- 사업 기준 점검 -->
         <div class="preview-col">
           <p class="preview-col-label">사업 기준 점검</p>
-
-          <div class="preview-item">
-            <span class="icon">✅</span>
-            <span>사업을 한 문장으로 설명할 수 있나요?</span>
-          </div>
-          <div class="preview-item">
-            <span class="icon">✅</span>
-            <span>핵심 고객이 누구인지 알고 있나요?</span>
-          </div>
-          <div class="preview-item">
-            <span class="icon">✅</span>
-            <span>경쟁자와 나를 구분하는 기준이 있나요?</span>
-          </div>
-          <div class="preview-item locked">
-            <span class="icon">🔒</span>
-            <span>고객이 돌아오는 이유를 말할 수 있나요?</span>
-          </div>
-          <div class="preview-item locked">
-            <span class="icon">🔒</span>
-            <span>지금 하는 마케팅의 기준이 있나요?</span>
-          </div>
-          <div class="preview-item locked">
-            <span class="icon">🔒</span>
-            <span>6개월 후 목표가 구체적으로 있나요?</span>
-          </div>
+          <div class="preview-item"><span class="icon">✅</span><span>사업을 한 문장으로 설명할 수 있나요?</span></div>
+          <div class="preview-item"><span class="icon">✅</span><span>핵심 고객이 누구인지 알고 있나요?</span></div>
+          <div class="preview-item"><span class="icon">✅</span><span>경쟁자와 나를 구분하는 기준이 있나요?</span></div>
+          <div class="preview-item locked"><span class="icon">🔒</span><span>고객이 돌아오는 이유를 말할 수 있나요?</span></div>
+          <div class="preview-item locked"><span class="icon">🔒</span><span>지금 하는 마케팅의 기준이 있나요?</span></div>
+          <div class="preview-item locked"><span class="icon">🔒</span><span>6개월 후 목표가 구체적으로 있나요?</span></div>
           <p class="preview-more">+ 9개 항목 더 있음</p>
         </div>
       </div>
 
       <div class="preview-cta-row">
         <p class="preview-cta-note">전체 진단 항목 35개 · AI 분석 리포트 · 실행 문장까지 제공<br><span style="color:var(--mint);font-weight:600;">5월 한정 30,000원 → 결제 후 접근 코드 발급</span></p>
-          <a href="https://ai.mitgeul.co.kr" target="_blank" class="payment-cta-btn">
-        STEP 1. 사업 기준 · 매장 자가진단 바로가기 →</a>
+        <a href="https://ai.mitgeul.co.kr" target="_blank" rel="noopener noreferrer" class="payment-cta-btn">
+          STEP 1. 사업 기준 · 매장 자가진단 바로가기 →
+        </a>
       </div>
     </div>
-    <!-- ── / 진단 미리보기 섹션 ── -->
 
     <!-- STEP 2 -->
     <div style="border:0.5px solid var(--border);background:var(--navy-light);padding:2.5rem 1.5rem;margin-bottom:2.5rem;">
@@ -645,7 +597,7 @@
   <section class="cta-section">
     <h2 class="cta-title">"대표님의 사업을<br><em>한 문장으로</em><br>말할 수 있습니까"</h2>
     <p class="cta-desc" style="word-break: keep-all;">말하기 어렵다면, 기준이 없는 겁니다</p>
-    <a href="http://pf.kakao.com/_ftVan" target="_blank" class="cta-btn" style="white-space:nowrap;">카카오톡 채널로 상담 신청하기 →</a>
+    <a href="https://pf.kakao.com/_ftVan" target="_blank" rel="noopener noreferrer" class="cta-btn" style="white-space:nowrap;">카카오톡 채널로 상담 신청하기 →</a>
   </section>
 
   <footer style="padding:3rem 2rem;border-top:0.5px solid rgba(255,255,255,0.1);max-width:820px;margin:0 auto;">
@@ -660,7 +612,7 @@
         </p>
       </div>
       <div style="text-align:right;">
-        <a href="http://pf.kakao.com/_ftVan" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:0.75rem 1.5rem;border:1px solid #3DFFC0;color:#3DFFC0;text-decoration:none;font-size:16px;">카카오톡 1:1 상담 →</a>
+        <a href="https://pf.kakao.com/_ftVan" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:0.75rem 1.5rem;border:1px solid #3DFFC0;color:#3DFFC0;text-decoration:none;font-size:16px;">카카오톡 1:1 상담 →</a>
       </div>
     </div>
     <div style="border-top:0.5px solid rgba(255,255,255,0.1);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;">
