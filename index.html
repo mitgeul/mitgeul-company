@@ -95,6 +95,95 @@
     }
     .cta-btn:hover { opacity: 0.85; }
 
+    /* ── 미리보기 섹션 ── */
+    .preview-wrap {
+      margin-bottom: 2.5rem;
+      border: 0.5px solid var(--border);
+      background: var(--navy-dark);
+      padding: 2rem;
+    }
+    .preview-intro {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      color: var(--mint);
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .preview-heading {
+      font-family: 'Noto Serif KR', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+    .preview-cols {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .preview-col {
+      border: 0.5px solid var(--border);
+      padding: 1.25rem 1.25rem 1rem;
+    }
+    .preview-col-label {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      color: var(--mint);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .preview-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.7;
+      padding: 0.5rem 0;
+      border-bottom: 0.5px solid rgba(255,255,255,0.06);
+    }
+    .preview-item:last-child { border-bottom: none; }
+    .preview-item.locked { opacity: 0.45; }
+    .preview-item .icon { flex-shrink: 0; font-size: 14px; margin-top: 2px; }
+    .preview-more {
+      font-size: 13px;
+      color: rgba(255,255,255,0.35);
+      padding-top: 0.6rem;
+      letter-spacing: 0.03em;
+    }
+    .preview-cta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .preview-cta-note {
+      font-size: 14px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+    }
+    .preview-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0.85rem 1.75rem;
+      background: var(--mint);
+      color: var(--navy);
+      font-size: 15px;
+      font-weight: 700;
+      font-family: 'Noto Sans KR', sans-serif;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s;
+      flex-shrink: 0;
+    }
+    .preview-cta-btn:hover { opacity: 0.85; }
+
     @media (max-width: 600px) {
       .nav { flex-direction: column; gap: 1rem; padding: 1rem 1rem; }
       .nav-links { flex-wrap: wrap; justify-content: center; gap: 0.8rem; }
@@ -107,7 +196,11 @@
       .cta-desc { font-size: 16px; }
       [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
       [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
+      .preview-cols { grid-template-columns: 1fr; }
+      .preview-cta-row { flex-direction: column; align-items: stretch; }
+      .preview-cta-btn { text-align: center; justify-content: center; }
     }
+
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -158,7 +251,7 @@
     <div style="margin-top:2.5rem;border:0.5px solid var(--border);background:var(--navy-light);padding:2.5rem 2rem;margin-bottom:1px;">
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;flex-wrap:wrap;">
         <span style="font-size:14px;letter-spacing:0.15em;color:var(--mint);border:1px solid var(--mint);padding:4px 12px;">STEP 1</span>
-        <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:400;color:#fff;">기준 점검 (자가진단)</h3>
+        <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:400;color:#fff;">기준 점검</h3>
       </div>
       <p style="font-size:19px;color:var(--text-sub);line-height:1.9;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border);">진단 질문을 통해 현재 사업 기준과 매장 상태를 점검하고 결과와 개선 방향을 확인하는 과정입니다. STEP 1은 단독으로 완결되는 사업 기준 · 매장 자가진단 서비스입니다.</p>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;">
@@ -181,32 +274,111 @@
         </div>
       </div>
     </div>
-    
-<div style="text-align: center;">
-<a href="https://ai.mitgeul.co.kr/" target="_blank" style="
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 1.5rem;
-      margin-bottom: 2.5rem;
-      padding: 1.25rem 3rem;
-      width: 100%;
-      box-sizing: border-box;
-      background: var(--mint);
-      color: var(--navy);
-      font-size: 18px;
-      font-weight: 500;
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: opacity 0.2s;
-      border: none;
-    " onmouseover="this.style.opacity='0.85';" onmouseout="this.style.opacity='1';">
-       STEP 1. 사업 기준 · 매장 자가진단 바로가기(MITGEUL v1.0 SYSTEM)   →   
-    </a>
-</div>
 
-        <!-- STEP 2 -->
+    <!-- STEP 1 바로가기 버튼 -->
+    <div style="text-align: center;">
+      <a href="https://ai.mitgeul.co.kr/" target="_blank" style="
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 1.5rem;
+        margin-bottom: 2.5rem;
+        padding: 1.25rem 3rem;
+        width: 100%;
+        box-sizing: border-box;
+        background: var(--mint);
+        color: var(--navy);
+        font-size: 18px;
+        font-weight: 500;
+        text-decoration: none;
+        letter-spacing: 0.05em;
+        transition: opacity 0.2s;
+        border: none;
+      " onmouseover="this.style.opacity='0.85';" onmouseout="this.style.opacity='1';">
+        STEP 1. 사업 기준 · 매장 자가진단 시스템 바로가기 →
+      </a>
+    </div>
+
+    <!-- ── 진단 미리보기 섹션 ── -->
+    <div class="preview-wrap">
+      <p class="preview-intro">STEP 1. 사업 기준 · 매장 자가진단 미리보기</p>
+      <p class="preview-heading">이런 항목을 점검합니다 — 전체 진단은 결제 후 진행됩니다</p>
+
+      <div class="preview-cols">
+        <!-- 플레이스 자가진단 -->
+        <div class="preview-col">
+          <p class="preview-col-label">플레이스 자가진단</p>
+
+          <div class="preview-item">
+            <span class="icon">✅</span>
+            <span>대표 사진이 선명하게 보이나요?</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">✅</span>
+            <span>소개글이 300자 이상인가요?</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">✅</span>
+            <span>영업시간·전화번호가 정확히 등록돼 있나요?</span>
+          </div>
+          <div class="preview-item locked">
+            <span class="icon">🔒</span>
+            <span>리뷰가 최근 3개월 내 올라오나요?</span>
+          </div>
+          <div class="preview-item locked">
+            <span class="icon">🔒</span>
+            <span>부정 리뷰에 답글이 달려있나요?</span>
+          </div>
+          <div class="preview-item locked">
+            <span class="icon">🔒</span>
+            <span>블로그 리뷰가 10건 이상인가요?</span>
+          </div>
+          <p class="preview-more">+ 14개 항목 더 있음</p>
+        </div>
+
+        <!-- 사업 기준 점검 -->
+        <div class="preview-col">
+          <p class="preview-col-label">사업 기준 점검</p>
+
+          <div class="preview-item">
+            <span class="icon">✅</span>
+            <span>사업을 한 문장으로 설명할 수 있나요?</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">✅</span>
+            <span>핵심 고객이 누구인지 알고 있나요?</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">✅</span>
+            <span>경쟁자와 나를 구분하는 기준이 있나요?</span>
+          </div>
+          <div class="preview-item locked">
+            <span class="icon">🔒</span>
+            <span>고객이 돌아오는 이유를 말할 수 있나요?</span>
+          </div>
+          <div class="preview-item locked">
+            <span class="icon">🔒</span>
+            <span>지금 하는 마케팅의 기준이 있나요?</span>
+          </div>
+          <div class="preview-item locked">
+            <span class="icon">🔒</span>
+            <span>6개월 후 목표가 구체적으로 있나요?</span>
+          </div>
+          <p class="preview-more">+ 9개 항목 더 있음</p>
+        </div>
+      </div>
+
+      <div class="preview-cta-row">
+        <p class="preview-cta-note">전체 진단 항목 35개 · AI 분석 리포트 · 실행 문장까지 제공</p>
+        <a href="https://ai.mitgeul.co.kr/" target="_blank" class="preview-cta-btn">
+          전체 진단 시작하기 →
+        </a>
+      </div>
+    </div>
+    <!-- ── / 진단 미리보기 섹션 ── -->
+
+    <!-- STEP 2 -->
     <div style="border:0.5px solid var(--border);background:var(--navy-light);padding:2.5rem 2rem;margin-bottom:2.5rem;">
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;flex-wrap:wrap;">
         <span style="font-size:14px;letter-spacing:0.15em;color:var(--mint);border:1px solid var(--mint);padding:4px 12px;">STEP 2</span>
