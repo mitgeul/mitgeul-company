@@ -356,7 +356,7 @@
       line-height: 1.6;
     }
 
-    /* ── 히어로 페이드업 애니메이션 (수정: keyframes 선언 복구) ── */
+    /* ── 히어로 페이드업 애니메이션 ── */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(20px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -416,8 +416,7 @@
     <div class="nav-links">
       <a href="#">홈</a>
       <a href="#service">서비스</a>
-      <a href="blog-marketing.html">블로그마케팅</a>
-      <!-- [확인 필요] blog-marketing.html 파일이 존재하는지 확인 후 경로 수정 -->
+      <!-- 블로그마케팅 메뉴 삭제됨 (히든 페이지로 전환: blog-marketing.html) -->
       <a href="https://pf.kakao.com/_ftVan" target="_blank" rel="noopener noreferrer">문의</a>
     </div>
   </nav>
@@ -441,15 +440,15 @@
 
   <section class="section" id="service">
     <p class="section-label">2026 믿글 서비스</p>
-    <h2 class="section-title">사업의 기준과<br>방향을 세웁니다</h2>
+    <h2 class="section-title">사업기준점검과<br>사업기준코칭,<br>두 가지에 집중합니다</h2>
 
-    <!-- STEP 1 -->
+    <!-- 사업기준점검 (구 STEP 1) -->
     <div style="margin-top:2.5rem;border:0.5px solid var(--border);background:var(--navy-light);padding:2.5rem 1.5rem;margin-bottom:1px;">
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;flex-wrap:wrap;">
-        <span style="font-size:14px;letter-spacing:0.15em;color:var(--mint);border:1px solid var(--mint);padding:4px 12px;">STEP 1</span>
-        <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:400;color:#fff;">기준 점검</h3>
+        <span style="font-size:14px;letter-spacing:0.15em;color:var(--mint);border:1px solid var(--mint);padding:4px 12px;">서비스 01</span>
+        <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:400;color:#fff;">사업기준점검</h3>
       </div>
-      <p style="font-size:18px;color:var(--text-sub);line-height:1.9;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border);word-break:keep-all;">자가 진단 질문을 통해 현재 사업기준과 매장 상태를 점검하고 결과와 개선 방향을 확인하는 과정입니다. STEP 1은 단독으로 완결되는 사업기준 · 매장 자가진단 서비스입니다.</p>
+      <p style="font-size:18px;color:var(--text-sub);line-height:1.9;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border);word-break:keep-all;">자가 진단 질문을 통해 현재 사업기준과 매장 상태를 점검하고 결과와 개선 방향을 확인하는 과정입니다. 단독으로 완결되는 사업기준 · 매장 자가진단 서비스입니다.</p>
       <div class="service-inner-grid">
         <div>
           <p style="font-size:14px;color:var(--mint);margin-bottom:1rem;letter-spacing:0.05em;">포함 내용</p>
@@ -470,7 +469,7 @@
       </div>
     </div>
 
-    <!-- STEP 1 결제 + 진행 안내 -->
+    <!-- 사업기준점검 결제 + 진행 안내 -->
     <div class="payment-wrap">
       <div class="payment-price-row">
         <div class="payment-price-item current">
@@ -481,72 +480,73 @@
       </div>
 
       <div class="payment-steps">
-  <div class="payment-step">
-    <span class="payment-step-num">01</span>
-    <div class="payment-step-body">
-      <span class="payment-step-title">결제완료</span>
-    </div>
-  </div>
-  <div class="payment-step-line"></div>
-  <div class="payment-step">
-    <span class="payment-step-num">02</span>
-    <div class="payment-step-body">
-      <span class="payment-step-title">접근 코드 발송</span>
-    </div>
-  </div>
-  <div class="payment-step-line"></div>
-  <div class="payment-step">
-    <span class="payment-step-num">03</span>
-    <div class="payment-step-body">
-      <span class="payment-step-title">진단 시스템 접속 후 진단 시작</span>
-      <span class="payment-step-sub">상권분석 → 매장 자가진단 → 사업기준 점검 → 분석 리포트 → 구글폼 저장</span>
-    </div>
-  </div>
-</div>
-<div class="payment-cta-btn" style="cursor:default;">STEP 1. 사업기준 · 매장 자가진단 · 상권분석 시스템 안내</div>
-<p class="payment-cta-sub">결제 후 접근 코드를 받아 <a href="https://ai.mitgeul.co.kr/" target="_blank" rel="noopener noreferrer" style="color:var(--mint);text-decoration:none;">ai.mitgeul.co.kr</a>에서 진단을 진행합니다</p>
-
-    <!-- 진단 미리보기 섹션 -->
-    <div class="preview-wrap">
-      <p class="preview-intro">STEP 1. 사업기준 · 매장 자가진단 · 상권분석 시스템 미리보기</p>
-      <p class="preview-heading">이런 항목을 점검합니다 — 전체 진단은 결제 후 진행됩니다</p>
-
-      <div class="preview-cols">
-        <div class="preview-col">
-          <p class="preview-col-label">매장 자가진단</p>
-          <div class="preview-item"><span class="icon">✅</span><span>대표 사진이 선명하게 보이나요?</span></div>
-          <div class="preview-item"><span class="icon">✅</span><span>소개글이 300자 이상인가요?</span></div>
-          <div class="preview-item"><span class="icon">✅</span><span>영업시간·전화번호가 정확히 등록돼 있나요?</span></div>
-          <div class="preview-item locked"><span class="icon">🔒</span><span>리뷰가 최근 3개월 내 올라오나요?</span></div>
-          <div class="preview-item locked"><span class="icon">🔒</span><span>부정 리뷰에 답글이 달려있나요?</span></div>
-          <div class="preview-item locked"><span class="icon">🔒</span><span>블로그 리뷰가 10건 이상인가요?</span></div>
-          <p class="preview-more">+ 14개 항목 더 있음</p>
+        <div class="payment-step">
+          <span class="payment-step-num">01</span>
+          <div class="payment-step-body">
+            <span class="payment-step-title">결제완료</span>
+          </div>
         </div>
-        <div class="preview-col">
-          <p class="preview-col-label">사업기준 점검</p>
-          <div class="preview-item"><span class="icon">✅</span><span>사업을 한 문장으로 설명할 수 있나요?</span></div>
-          <div class="preview-item"><span class="icon">✅</span><span>핵심 고객이 누구인지 알고 있나요?</span></div>
-          <div class="preview-item"><span class="icon">✅</span><span>경쟁자와 나를 구분하는 기준이 있나요?</span></div>
-          <div class="preview-item locked"><span class="icon">🔒</span><span>고객이 재방문하는 이유를 말할 수 있나요?</span></div>
-          <div class="preview-item locked"><span class="icon">🔒</span><span>지금 하는 마케팅의 기준이 있나요?</span></div>
-          <div class="preview-item locked"><span class="icon">🔒</span><span>6개월 후 목표가 구체적으로 있나요?</span></div>
-          <p class="preview-more">+ 9개 항목 더 있음</p>
+        <div class="payment-step-line"></div>
+        <div class="payment-step">
+          <span class="payment-step-num">02</span>
+          <div class="payment-step-body">
+            <span class="payment-step-title">접근 코드 발송</span>
+          </div>
+        </div>
+        <div class="payment-step-line"></div>
+        <div class="payment-step">
+          <span class="payment-step-num">03</span>
+          <div class="payment-step-body">
+            <span class="payment-step-title">진단 시스템 접속 후 진단 시작</span>
+            <span class="payment-step-sub">상권분석 → 매장 자가진단 → 사업기준 점검 → 분석 리포트 → 구글폼 저장</span>
+          </div>
         </div>
       </div>
+      <div class="payment-cta-btn" style="cursor:default;">사업기준점검 시스템 안내</div>
+      <p class="payment-cta-sub">결제 후 접근 코드를 받아 <a href="https://ai.mitgeul.co.kr/" target="_blank" rel="noopener noreferrer" style="color:var(--mint);text-decoration:none;">ai.mitgeul.co.kr</a>에서 진단을 진행합니다</p>
 
-      <div class="preview-cta-row">
-        <p class="preview-cta-note">전체 진단 항목 35개 · 분석 리포트 · 실행 문장까지 제공<br><span style="color:var(--mint);font-weight:600;">5월 한정 파일럿 특가 30,000원 → 결제 후 접근 코드 발급</span></p>
-        <a href="https://ai.mitgeul.co.kr" target="_blank" rel="noopener noreferrer" class="payment-cta-btn">
-          STEP 1. 사업기준 · 매장 자가진단 · 상권분석 시스템 바로가기 →
-        </a>
+      <!-- 진단 미리보기 섹션 -->
+      <div class="preview-wrap">
+        <p class="preview-intro">사업기준점검 시스템 미리보기</p>
+        <p class="preview-heading">이런 항목을 점검합니다 — 전체 진단은 결제 후 진행됩니다</p>
+
+        <div class="preview-cols">
+          <div class="preview-col">
+            <p class="preview-col-label">매장 자가진단</p>
+            <div class="preview-item"><span class="icon">✅</span><span>대표 사진이 선명하게 보이나요?</span></div>
+            <div class="preview-item"><span class="icon">✅</span><span>소개글이 300자 이상인가요?</span></div>
+            <div class="preview-item"><span class="icon">✅</span><span>영업시간·전화번호가 정확히 등록돼 있나요?</span></div>
+            <div class="preview-item locked"><span class="icon">🔒</span><span>리뷰가 최근 3개월 내 올라오나요?</span></div>
+            <div class="preview-item locked"><span class="icon">🔒</span><span>부정 리뷰에 답글이 달려있나요?</span></div>
+            <div class="preview-item locked"><span class="icon">🔒</span><span>블로그 리뷰가 10건 이상인가요?</span></div>
+            <p class="preview-more">+ 14개 항목 더 있음</p>
+          </div>
+          <div class="preview-col">
+            <p class="preview-col-label">사업기준 점검</p>
+            <div class="preview-item"><span class="icon">✅</span><span>사업을 한 문장으로 설명할 수 있나요?</span></div>
+            <div class="preview-item"><span class="icon">✅</span><span>핵심 고객이 누구인지 알고 있나요?</span></div>
+            <div class="preview-item"><span class="icon">✅</span><span>경쟁자와 나를 구분하는 기준이 있나요?</span></div>
+            <div class="preview-item locked"><span class="icon">🔒</span><span>고객이 재방문하는 이유를 말할 수 있나요?</span></div>
+            <div class="preview-item locked"><span class="icon">🔒</span><span>지금 하는 마케팅의 기준이 있나요?</span></div>
+            <div class="preview-item locked"><span class="icon">🔒</span><span>6개월 후 목표가 구체적으로 있나요?</span></div>
+            <p class="preview-more">+ 9개 항목 더 있음</p>
+          </div>
+        </div>
+
+        <div class="preview-cta-row">
+          <p class="preview-cta-note">전체 진단 항목 35개 · 분석 리포트 · 실행 문장까지 제공<br><span style="color:var(--mint);font-weight:600;">5월 한정 파일럿 특가 30,000원 → 결제 후 접근 코드 발급</span></p>
+          <a href="https://ai.mitgeul.co.kr" target="_blank" rel="noopener noreferrer" class="payment-cta-btn">
+            사업기준점검 시스템 바로가기 →
+          </a>
+        </div>
       </div>
     </div>
 
-    <!-- STEP 2 -->
+    <!-- 사업기준코칭 (구 STEP 2) -->
     <div style="border:0.5px solid var(--border);background:var(--navy-light);padding:2.5rem 1.5rem;margin-bottom:2.5rem;">
       <div style="display:flex;align-items:center;gap:1rem;margin-bottom:0.75rem;flex-wrap:wrap;">
-        <span style="font-size:14px;letter-spacing:0.15em;color:var(--mint);border:1px solid var(--mint);padding:4px 12px;">STEP 2</span>
-        <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:400;color:#fff;">기준 설계 (집중 10일)</h3>
+        <span style="font-size:14px;letter-spacing:0.15em;color:var(--mint);border:1px solid var(--mint);padding:4px 12px;">서비스 02</span>
+        <h3 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:400;color:#fff;">사업기준코칭 (집중 10일)</h3>
       </div>
       <p style="font-size:18px;color:var(--text-sub);line-height:1.9;margin-bottom:2rem;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border);word-break:keep-all;">대표님의 사업 판단 기준을 생각이 아니라 구조로 정리하는 과정입니다. 집중 10일 동안 1:1 비대면으로 밀착 진행하는 서비스입니다.</p>
       <div class="service-inner-grid">
@@ -562,7 +562,7 @@
         </div>
         <div>
           <p style="font-size:14px;color:var(--mint);margin-bottom:1rem;letter-spacing:0.05em;">안내</p>
-          <p style="font-size:16px;color:var(--text-sub);line-height:1.9;word-break:keep-all;">STEP 2는 STEP 1을 포함합니다.<br><br>사업의 기준 점검부터 기준 설계까지, 흔들리지 않는 판단 구조를 함께 만드는 과정입니다.</p>
+          <p style="font-size:16px;color:var(--text-sub);line-height:1.9;word-break:keep-all;">사업기준코칭은 사업기준점검을 포함합니다.<br><br>사업의 기준 점검부터 기준 설계까지, 흔들리지 않는 판단 구조를 함께 만드는 과정입니다.</p>
         </div>
       </div>
     </div>
@@ -601,13 +601,11 @@
         <p style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:600;color:#fff;margin-bottom:1rem;">믿글컴퍼니</p>
         <p style="font-size:15px;color:rgba(255,255,255,0.6);line-height:2;">
           | 영업시간 :  평일 10:00 ~ 17:00(공휴일 제외)<br><br><br>
-          
-          대표자 : 김주영<br> 
+          대표자 : 김주영<br>
           사업자등록번호 : 110-38-93717<br>
           통신판매업 신고 : 제2025-서울영등포-1947호<br>
           개인정보보호책임자 : 김주영(mitgeul@gmail.com)<br>
           주소 : 서울시 영등포구 여의서로43, 614-A77<br>
-          
         </p>
       </div>
       <div style="text-align:right;">
