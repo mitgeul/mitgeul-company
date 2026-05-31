@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MITGEUL — 무료 상권분석 · 내 매장이 검색되지 않는 이유</title>
+<meta name="description" content="동네와 업종만 입력하면 경쟁 밀집도·선점 가능한 키워드·기준표를 즉시 확인. 로그인 없음·결제 없음·30초면 충분.">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=DM+Mono:wght@400;500&family=Pretendard:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1E2370;--bg2:#171d5e;--bg3:#1c2268;--card:#181e62;--border:#2d3580;--accent:#3DFFC0;--accent3:#f59e0b;--accent4:#f43f5e;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:'Pretendard',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(61,255,192,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(61,255,192,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+
+.wrap{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:40px 20px 80px;}
+
+.logo{display:inline-flex;align-items:center;gap:10px;margin-bottom:32px;padding:10px 20px 10px 14px;border-radius:14px;border:1px solid rgba(61,255,192,0.18);background:rgba(61,255,192,0.04);}
+.wordmark{font-family:'DM Mono',monospace;font-size:16px;font-weight:500;letter-spacing:4px;color:#fff;}
+.wordmark span{color:var(--accent);}
+
+/* 히어로 */
+.hero{text-align:center;padding:20px 0 48px;}
+.hero-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--accent);border:1px solid rgba(61,255,192,0.3);padding:6px 16px;border-radius:20px;background:rgba(61,255,192,0.05);margin-bottom:20px;}
+.hero h1{font-family:'Noto Serif KR',serif;font-size:clamp(22px,5vw,34px);font-weight:700;line-height:1.35;color:#fff;margin-bottom:14px;}
+.hero h1 span{color:var(--accent);}
+.hero p{font-size:14px;color:var(--text2);line-height:1.85;max-width:480px;margin:0 auto 20px;}
+.hero-tags{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.hero-tag{font-size:11px;font-family:'DM Mono',monospace;color:var(--accent);border:1px solid rgba(61,255,192,0.2);padding:5px 12px;border-radius:20px;background:rgba(61,255,192,0.04);}
+
+/* 폼 카드 */
+.diag-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;margin-bottom:24px;transition:border-color .2s;}
+.diag-card:hover{border-color:rgba(61,255,192,0.2);}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:480px){.form-row{grid-template-columns:1fr;}}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+label{font-size:12px;color:var(--text2);font-weight:600;letter-spacing:.5px;}
+select,input{background:var(--bg2);border:1px solid var(--border);border-radius:10px;color:var(--text);font-family:'Pretendard',sans-serif;font-size:14px;padding:12px 14px;outline:none;transition:border-color .2s;width:100%;}
+select:focus,input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(61,255,192,0.08);}
+select option{background:var(--bg2);}
+.form-error{display:none;font-size:12px;color:var(--accent4);margin-top:6px;padding:8px 12px;border-radius:8px;background:rgba(244,63,94,0.07);border:1px solid rgba(244,63,94,0.2);}
+
+.btn-diag{width:100%;background:var(--accent);color:#111850;border:none;border-radius:12px;font-size:15px;font-weight:700;padding:16px;cursor:pointer;font-family:'Pretendard',sans-serif;margin-top:6px;transition:all .25s;letter-spacing:.5px;}
+.btn-diag:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,255,192,0.3);}
+.btn-diag:disabled{opacity:.5;transform:none;cursor:not-allowed;}
+
+/* 결과 */
+#resultArea{display:none;animation:fadeIn .5s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.grade-banner{border-radius:16px;padding:26px;margin-bottom:16px;text-align:center;}
+.grade-banner.hot{background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.3);}
+.grade-banner.mid{background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.3);}
+.grade-banner.rare{background:rgba(61,255,192,0.08);border:1px solid rgba(61,255,192,0.3);}
+.grade-num{font-family:'DM Mono',monospace;font-size:52px;font-weight:700;line-height:1;margin-bottom:8px;}
+.grade-label{font-size:13px;color:var(--text2);}
+
+.kw-section{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:12px;}
+.kw-section-title{font-size:11px;font-family:'DM Mono',monospace;letter-spacing:1.5px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.kw-section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(61,255,192,0.3),transparent);}
+.kw-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px;}
+.kw-tag{padding:6px 14px;border-radius:20px;font-size:12px;font-family:'DM Mono',monospace;cursor:pointer;transition:all .2s;border:1px solid;user-select:none;}
+.kw-tag.place{color:#3DFFC0;border-color:rgba(61,255,192,0.3);background:rgba(61,255,192,0.07);}
+.kw-tag.situ{color:#f59e0b;border-color:rgba(245,158,11,0.3);background:rgba(245,158,11,0.06);}
+.kw-tag.land{color:#94a3b8;border-color:rgba(148,163,184,0.25);background:rgba(148,163,184,0.05);}
+.kw-tag:hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(61,255,192,0.15);}
+.kw-tag:active{transform:scale(.97);}
+.kw-hint{font-size:11px;color:var(--text3);}
+
+.stat-bar{margin-bottom:14px;}
+.stat-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text2);margin-bottom:6px;}
+.stat-bar-track{height:6px;background:var(--bg3);border-radius:3px;overflow:hidden;}
+.stat-bar-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,#3DFFC0,#00e8a8);transition:width 1s cubic-bezier(.34,1.56,.64,1);}
+
+.bench-preview{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:22px;margin-bottom:12px;}
+.bench-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;}
+.bench-row:last-child{border-bottom:none;}
+.bench-metric{color:var(--text2);}
+.bench-vals{display:flex;gap:14px;font-family:'DM Mono',monospace;font-size:12px;}
+.bench-top{color:var(--accent);}
+.bench-avg{color:var(--text3);}
+
+.cta-box{background:linear-gradient(135deg,rgba(61,255,192,0.09),rgba(30,35,112,0.6));border:1px solid rgba(61,255,192,0.25);border-radius:20px;padding:28px;text-align:center;margin-bottom:16px;}
+.cta-price{display:flex;align-items:baseline;gap:12px;justify-content:center;margin:14px 0;}
+.cta-old{font-size:14px;color:var(--accent4);text-decoration:line-through;}
+.cta-new{font-family:'DM Mono',monospace;font-size:36px;font-weight:700;color:var(--accent);}
+.btn-cta{display:inline-block;background:var(--accent);color:#111850;border:none;border-radius:12px;font-size:15px;font-weight:700;padding:15px 40px;cursor:pointer;font-family:'Pretendard',sans-serif;text-decoration:none;transition:all .25s;margin-top:4px;}
+.btn-cta:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(61,255,192,0.3);}
+.btn-kakao{display:inline-block;margin-top:12px;padding:12px 32px;background:transparent;border:1px solid rgba(61,255,192,0.3);border-radius:12px;color:var(--accent);font-size:13px;font-weight:600;text-decoration:none;font-family:'Pretendard',sans-serif;transition:all .2s;}
+.btn-kakao:hover{background:rgba(61,255,192,0.08);}
+
+.alert-info{padding:14px 18px;border-radius:10px;font-size:13px;line-height:1.65;background:rgba(61,255,192,0.06);border:1px solid rgba(61,255,192,0.2);color:var(--text2);margin-bottom:12px;display:flex;gap:10px;}
+
+/* 사회적 증거 */
+.social-proof{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:40px;}
+.sp-item{text-align:center;padding:16px 20px;border-radius:14px;background:rgba(61,255,192,0.04);border:1px solid rgba(61,255,192,0.1);min-width:100px;}
+.sp-num{font-family:'DM Mono',monospace;font-size:24px;font-weight:700;color:var(--accent);}
+.sp-label{font-size:11px;color:var(--text3);margin-top:4px;}
+
+#copyToast{position:fixed;bottom:32px;left:50%;transform:translateX(-50%) translateY(20px);background:#3DFFC0;color:#111850;font-size:13px;font-weight:700;padding:10px 24px;border-radius:20px;opacity:0;transition:all .3s;pointer-events:none;z-index:9999;white-space:nowrap;}
+#copyToast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+.footer{text-align:center;padding:24px 0;border-top:1px solid rgba(61,255,192,0.08);margin-top:20px;font-size:12px;color:var(--text3);line-height:1.9;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="logo">
+    <svg width="32" height="32" viewBox="0 0 42 42" fill="none">
+      <rect width="42" height="42" rx="12" fill="url(#lg1)"/>
+      <rect width="42" height="42" rx="12" stroke="#3DFFC0" stroke-width="1.5" stroke-opacity="0.4" fill="none"/>
+      <text x="21" y="30" text-anchor="middle" font-family="DM Mono,monospace" font-size="22" font-weight="700" fill="#3DFFC0">M</text>
+      <circle cx="34" cy="9" r="3.5" fill="#3DFFC0" opacity="0.9"/>
+      <defs><linearGradient id="lg1" x1="0" y1="0" x2="42" y2="42" gradientUnits="userSpaceOnUse"><stop stop-color="#252c8a"/><stop offset="1" stop-color="#1a2078"/></linearGradient></defs>
+    </svg>
+    <span class="wordmark">MITGEUL<span>2026</span></span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-badge">FREE · 무료 상권분석</div>
+    <h1>내 매장이 검색되지 않는 이유,<br><span>지금 바로 확인하세요</span></h1>
+    <p>동네와 업종만 입력하면<br>경쟁 밀집도 · 선점 가능한 키워드 · 기준표를 즉시 보여드립니다.</p>
+    <div class="hero-tags">
+      <span class="hero-tag">로그인 없음</span>
+      <span class="hero-tag">결제 없음</span>
+      <span class="hero-tag">30초면 충분</span>
+      <span class="hero-tag">소진공 실측 데이터</span>
+    </div>
+  </div>
+
+  <div class="social-proof">
+    <div class="sp-item"><div class="sp-num">25개</div><div class="sp-label">서울 전 구 지원</div></div>
+    <div class="sp-item"><div class="sp-num">6개</div><div class="sp-label">업종 분석</div></div>
+    <div class="sp-item"><div class="sp-num">무료</div><div class="sp-label">로그인 없이</div></div>
+  </div>
+
+  <!-- 진단 폼 -->
+  <div class="diag-card">
+    <div class="form-row">
+      <div class="form-group">
+        <label>업종 *</label>
+        <select id="fCat">
+          <option value="">업종 선택</option>
+          <option value="cafe">카페 / 디저트</option>
+          <option value="restaurant">음식점 / 식당</option>
+          <option value="beauty">미용 / 뷰티</option>
+          <option value="fitness">운동 / 헬스</option>
+          <option value="edu">교육 / 학원</option>
+          <option value="medical">병원 / 의원</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>시도 *</label>
+        <select id="fRegion">
+          <option value="">시도 선택</option>
+          <option value="서울특별시">서울특별시</option>
+          <option value="" disabled>경기도 (준비중)</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>시군구 *</label>
+        <select id="fGu"><option value="">시도를 먼저 선택하세요</option></select>
+      </div>
+      <div class="form-group">
+        <label>동 이름 (선택)</label>
+        <input type="text" id="fDong" placeholder="예: 역삼동, 연남동"/>
+      </div>
+    </div>
+    <div id="formError" class="form-error">⚠️ 업종, 시도, 시군구를 모두 선택해주세요.</div>
+    <button class="btn-diag" id="diagBtn" onclick="runFreeDiag()">무료 상권분석 시작 →</button>
+  </div>
+
+  <div id="resultArea"></div>
+
+</div>
+
+<div id="copyToast">📋 키워드 복사됨!</div>
+
+<div class="footer">
+  © 2026 믿글컴퍼니. All Rights Reserved.<br>
+  소진공 상가(상권)정보 2026.03 기반 · 무단 복제 금지
+</div>
+
+<script>
+var GU_LIST=["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
+
+var GU_DATA={"서울특별시":{"cafe":{"by_gu":[{"구":"강남구","점포수":2093,"등급":"과열"},{"구":"마포구","점포수":1734,"등급":"과열"},{"구":"송파구","점포수":1279,"등급":"과열"},{"구":"서초구","점포수":1242,"등급":"과열"},{"구":"종로구","점포수":1218,"등급":"과열"},{"구":"영등포구","점포수":1143,"등급":"과열"},{"구":"중구","점포수":1080,"등급":"과열"},{"구":"강서구","점포수":1040,"등급":"과열"},{"구":"용산구","점포수":825,"등급":"보통"},{"구":"성북구","점포수":784,"등급":"보통"},{"구":"광진구","점포수":763,"등급":"보통"},{"구":"강동구","점포수":750,"등급":"보통"},{"구":"성동구","점포수":729,"등급":"보통"},{"구":"관악구","점포수":711,"등급":"보통"},{"구":"동대문구","점포수":683,"등급":"보통"},{"구":"서대문구","점포수":656,"등급":"보통"},{"구":"노원구","점포수":651,"등급":"보통"},{"구":"구로구","점포수":608,"등급":"희소"},{"구":"은평구","점포수":605,"등급":"희소"},{"구":"동작구","점포수":588,"등급":"희소"},{"구":"금천구","점포수":554,"등급":"희소"},{"구":"양천구","점포수":552,"등급":"희소"},{"구":"중랑구","점포수":497,"등급":"희소"},{"구":"강북구","점포수":457,"등급":"희소"},{"구":"도봉구","점포수":377,"등급":"희소"}],"total":21619,"p33":647,"p67":842},"restaurant":{"by_gu":[{"구":"강남구","점포수":10181,"등급":"과열"},{"구":"마포구","점포수":7221,"등급":"과열"},{"구":"송파구","점포수":6694,"등급":"과열"},{"구":"영등포구","점포수":6370,"등급":"과열"},{"구":"강서구","점포수":5830,"등급":"과열"},{"구":"서초구","점포수":5362,"등급":"과열"},{"구":"종로구","점포수":5244,"등급":"과열"},{"구":"중구","점포수":4888,"등급":"과열"},{"구":"관악구","점포수":4808,"등급":"보통"},{"구":"동대문구","점포수":4355,"등급":"보통"},{"구":"강동구","점포수":4204,"등급":"보통"},{"구":"광진구","점포수":4177,"등급":"보통"},{"구":"용산구","점포수":4176,"등급":"보통"},{"구":"구로구","점포수":3964,"등급":"보통"},{"구":"은평구","점포수":3753,"등급":"보통"},{"구":"성동구","점포수":3721,"등급":"보통"},{"구":"성북구","점포수":3685,"등급":"보통"},{"구":"노원구","점포수":3667,"등급":"희소"},{"구":"중랑구","점포수":3636,"등급":"희소"},{"구":"서대문구","점포수":3440,"등급":"희소"},{"구":"강북구","점포수":3194,"등급":"희소"},{"구":"동작구","점포수":3160,"등급":"희소"},{"구":"양천구","점포수":3109,"등급":"희소"},{"구":"금천구","점포수":2996,"등급":"희소"},{"구":"도봉구","점포수":2404,"등급":"희소"}],"total":114239,"p33":3683,"p67":4814},"beauty":{"by_gu":[{"구":"강남구","점포수":2934,"등급":"과열"},{"구":"송파구","점포수":2079,"등급":"과열"},{"구":"마포구","점포수":1951,"등급":"과열"},{"구":"강서구","점포수":1949,"등급":"과열"},{"구":"관악구","점포수":1476,"등급":"과열"},{"구":"강동구","점포수":1469,"등급":"과열"},{"구":"서초구","점포수":1341,"등급":"과열"},{"구":"광진구","점포수":1304,"등급":"과열"},{"구":"은평구","점포수":1287,"등급":"보통"},{"구":"영등포구","점포수":1262,"등급":"보통"},{"구":"중랑구","점포수":1237,"등급":"보통"},{"구":"양천구","점포수":1194,"등급":"보통"},{"구":"노원구","점포수":1186,"등급":"보통"},{"구":"성북구","점포수":1177,"등급":"보통"},{"구":"동대문구","점포수":1085,"등급":"보통"},{"구":"구로구","점포수":1079,"등급":"보통"},{"구":"강북구","점포수":1062,"등급":"보통"},{"구":"동작구","점포수":981,"등급":"희소"},{"구":"성동구","점포수":923,"등급":"희소"},{"구":"도봉구","점포수":844,"등급":"희소"},{"구":"서대문구","점포수":810,"등급":"희소"},{"구":"금천구","점포수":706,"등급":"희소"},{"구":"용산구","점포수":624,"등급":"희소"},{"구":"중구","점포수":572,"등급":"희소"},{"구":"종로구","점포수":465,"등급":"희소"}],"total":30997,"p33":1055,"p67":1288},"fitness":{"by_gu":[{"구":"강남구","점포수":1035,"등급":"과열"},{"구":"송파구","점포수":777,"등급":"과열"},{"구":"서초구","점포수":641,"등급":"과열"},{"구":"강서구","점포수":571,"등급":"과열"},{"구":"영등포구","점포수":490,"등급":"과열"},{"구":"강동구","점포수":419,"등급":"과열"},{"구":"마포구","점포수":408,"등급":"과열"},{"구":"노원구","점포수":392,"등급":"과열"},{"구":"관악구","점포수":379,"등급":"보통"},{"구":"양천구","점포수":369,"등급":"보통"},{"구":"광진구","점포수":343,"등급":"보통"},{"구":"동대문구","점포수":319,"등급":"보통"},{"구":"구로구","점포수":312,"등급":"보통"},{"구":"성북구","점포수":289,"등급":"보통"},{"구":"은평구","점포수":282,"등급":"보통"},{"구":"중랑구","점포수":251,"등급":"보통"},{"구":"동작구","점포수":250,"등급":"보통"},{"구":"성동구","점포수":249,"등급":"희소"},{"구":"도봉구","점포수":245,"등급":"희소"},{"구":"중구","점포수":240,"등급":"희소"},{"구":"금천구","점포수":233,"등급":"희소"},{"구":"종로구","점포수":232,"등급":"희소"},{"구":"강북구","점포수":228,"등급":"희소"},{"구":"서대문구","점포수":226,"등급":"희소"},{"구":"용산구","점포수":182,"등급":"희소"}],"total":9362,"p33":249,"p67":380},"edu":{"by_gu":[{"구":"강남구","점포수":5129,"등급":"과열"},{"구":"서초구","점포수":3181,"등급":"과열"},{"구":"송파구","점포수":2944,"등급":"과열"},{"구":"양천구","점포수":2419,"등급":"과열"},{"구":"마포구","점포수":2348,"등급":"과열"},{"구":"강서구","점포수":2134,"등급":"과열"},{"구":"강동구","점포수":1964,"등급":"과열"},{"구":"노원구","점포수":1947,"등급":"과열"},{"구":"영등포구","점포수":1600,"등급":"보통"},{"구":"성북구","점포수":1585,"등급":"보통"},{"구":"은평구","점포수":1488,"등급":"보통"},{"구":"관악구","점포수":1419,"등급":"보통"},{"구":"동작구","점포수":1310,"등급":"보통"},{"구":"광진구","점포수":1291,"등급":"보통"},{"구":"서대문구","점포수":1211,"등급":"보통"},{"구":"구로구","점포수":1174,"등급":"보통"},{"구":"동대문구","점포수":1173,"등급":"보통"},{"구":"성동구","점포수":1066,"등급":"희소"},{"구":"중랑구","점포수":909,"등급":"희소"},{"구":"도봉구","점포수":863,"등급":"희소"},{"구":"종로구","점포수":845,"등급":"희소"},{"구":"용산구","점포수":767,"등급":"희소"},{"구":"강북구","점포수":713,"등급":"희소"},{"구":"금천구","점포수":676,"등급":"희소"},{"구":"중구","점포수":452,"등급":"희소"}],"total":40608,"p33":1164,"p67":1627},"medical":{"by_gu":[{"구":"강남구","점포수":2909,"등급":"과열"},{"구":"서초구","점포수":1445,"등급":"과열"},{"구":"송파구","점포수":1112,"등급":"과열"},{"구":"강서구","점포수":884,"등급":"과열"},{"구":"강동구","점포수":835,"등급":"과열"},{"구":"영등포구","점포수":748,"등급":"과열"},{"구":"마포구","점포수":704,"등급":"과열"},{"구":"노원구","점포수":679,"등급":"과열"},{"구":"양천구","점포수":644,"등급":"보통"},{"구":"관악구","점포수":638,"등급":"보통"},{"구":"은평구","점포수":634,"등급":"보통"},{"구":"동대문구","점포수":560,"등급":"보통"},{"구":"광진구","점포수":547,"등급":"보통"},{"구":"동작구","점포수":546,"등급":"보통"},{"구":"중구","점포수":535,"등급":"보통"},{"구":"구로구","점포수":525,"등급":"보통"},{"구":"중랑구","점포수":508,"등급":"보통"},{"구":"성북구","점포수":501,"등급":"희소"},{"구":"강북구","점포수":445,"등급":"희소"},{"구":"종로구","점포수":426,"등급":"희소"},{"구":"성동구","점포수":411,"등급":"희소"},{"구":"서대문구","점포수":393,"등급":"희소"},{"구":"금천구","점포수":335,"등급":"희소"},{"구":"도봉구","점포수":328,"등급":"희소"},{"구":"용산구","점포수":285,"등급":"희소"}],"total":17577,"p33":507,"p67":646}}};
+
+var CAT_LABELS={cafe:'카페/디저트',restaurant:'음식점/식당',beauty:'미용/뷰티',fitness:'운동/헬스',edu:'교육/학원',medical:'병원/의원'};
+
+var BENCHMARK={
+  cafe:{items:[{m:'블로그 리뷰 수',top:'50개+',avg:'20개+'},{m:'방문자 리뷰 수',top:'200개+',avg:'80개+'},{m:'등록 사진 수',top:'40장+',avg:'20장+'},{m:'메뉴 등록 수',top:'15개+',avg:'8개+'},{m:'체험단 수',top:'월 3건+',avg:'월 1건'}]},
+  restaurant:{items:[{m:'블로그 리뷰 수',top:'60개+',avg:'25개+'},{m:'방문자 리뷰 수',top:'300개+',avg:'100개+'},{m:'등록 사진 수',top:'50장+',avg:'25장+'},{m:'메뉴 등록 수',top:'20개+',avg:'10개+'},{m:'체험단 수',top:'월 2건+',avg:'월 1건'}]},
+  beauty:{items:[{m:'블로그 리뷰 수',top:'40개+',avg:'15개+'},{m:'방문자 리뷰 수',top:'150개+',avg:'60개+'},{m:'등록 사진 수',top:'30장+',avg:'15장+'},{m:'시술 메뉴 수',top:'20개+',avg:'10개+'},{m:'체험단 수',top:'월 2건+',avg:'월 1건'}]},
+  fitness:{items:[{m:'블로그 리뷰 수',top:'30개+',avg:'10개+'},{m:'방문자 리뷰 수',top:'100개+',avg:'40개+'},{m:'등록 사진 수',top:'25장+',avg:'12장+'},{m:'프로그램 수',top:'15개+',avg:'7개+'},{m:'체험단 수',top:'월 1건+',avg:'분기 1건'}]},
+  edu:{items:[{m:'블로그 리뷰 수',top:'30개+',avg:'12개+'},{m:'방문자 리뷰 수',top:'80개+',avg:'30개+'},{m:'등록 사진 수',top:'20장+',avg:'10장+'},{m:'강좌 수',top:'10개+',avg:'5개+'},{m:'체험단 수',top:'월 1건+',avg:'분기 1건'}]},
+  medical:{items:[{m:'블로그 리뷰 수',top:'30개+',avg:'12개+'},{m:'방문자 리뷰 수',top:'80개+',avg:'30개+'},{m:'등록 사진 수',top:'20장+',avg:'10장+'},{m:'진료과목 수',top:'10개+',avg:'5개+'},{m:'체험단 수',top:'월 1건+',avg:'분기 1건'}]}
+};
+
+// ── 시군구 드롭다운 — addEventListener 방식 ──
+document.addEventListener('DOMContentLoaded', function(){
+  var regionEl = document.getElementById('fRegion');
+  var guEl = document.getElementById('fGu');
+
+  regionEl.addEventListener('change', function(){
+    var region = this.value;
+    while(guEl.options.length > 0){ guEl.remove(0); }
+    var def = document.createElement('option');
+    def.value = '';
+    def.textContent = region ? '구 선택' : '시도를 먼저 선택하세요';
+    guEl.appendChild(def);
+    if(region === '서울특별시'){
+      GU_LIST.forEach(function(g){
+        var o = document.createElement('option');
+        o.value = g; o.textContent = g;
+        guEl.appendChild(o);
+      });
+    }
+  });
+});
+
+function getKeywords(cat, gu, dong){
+  var loc = dong || gu;
+  var place={cafe:[loc+' 카페',loc+' 브런치',loc+' 디저트 카페',gu+' 카페 추천',loc+' 커피'],restaurant:[loc+' 맛집',loc+' 식당',loc+' 점심 맛집',gu+' 맛집 추천',loc+' 저녁 맛집'],beauty:[loc+' 미용실',loc+' 헤어샵',loc+' 네일샵',gu+' 미용실 추천',loc+' 피부관리'],fitness:[loc+' 헬스장',loc+' 필라테스',loc+' PT',gu+' 헬스장 추천',loc+' 요가'],edu:[loc+' 학원',loc+' 영어학원',gu+' 학원 추천',loc+' 과외',loc+' 입시학원'],medical:[loc+' 병원',loc+' 내과',gu+' 병원 추천',loc+' 한의원',loc+' 피부과']};
+  var situation={cafe:[loc+' 노트북 카페',loc+' 혼자 가기 좋은 카페',loc+' 오래 앉아도 되는 카페',loc+' 조용한 카페',loc+' 데이트 카페',loc+' 아이랑 카페'],restaurant:[loc+' 혼밥 가능한 식당',loc+' 회식 장소',loc+' 주차 되는 맛집',loc+' 소개팅 식당',loc+' 아이랑 가기 좋은 식당',loc+' 웨이팅 없는 맛집'],beauty:[loc+' 말 안 걸어도 되는 미용실',loc+' 예약 시간 잘 지키는 헤어샵',loc+' 처음 가기 좋은 헤어샵',loc+' 민감성 피부 네일샵',loc+' 과한 권유 없는 샵'],fitness:[loc+' 초보자 필라테스',loc+' 직장인 PT',loc+' 다이어트 PT',loc+' 체형 교정',loc+' 소그룹 운동'],edu:[loc+' 직장인 영어학원',loc+' 소수 정예 학원',loc+' 단기 속성 학원',loc+' 주말 수업 학원',loc+' 성인 영어'],medical:[loc+' 대기 짧은 병원',loc+' 친절한 병원',loc+' 점심시간 병원',loc+' 설명 잘 해주는 병원',loc+' 과잉진료 없는 병원']};
+  var landmark={cafe:[gu+' 역 근처 카페',gu+' 공원 근처 카페',gu+' 산책하며 들르기 좋은 카페'],restaurant:[gu+' 역 근처 맛집',gu+' 공원 근처 식당',gu+' 주차 편한 맛집'],beauty:[gu+' 역 근처 미용실',gu+' 번화가 헤어샵'],fitness:[gu+' 역 근처 헬스장',gu+' 출퇴근길 필라테스'],edu:[gu+' 역세권 학원',gu+' 직장 근처 학원'],medical:[gu+' 역 근처 병원',gu+' 회사 근처 병원']};
+  return{place:place[cat]||[],situation:situation[cat]||[],landmark:landmark[cat]||[]};
+}
+
+function copyKw(txt){
+  navigator.clipboard.writeText(txt).then(function(){
+    var t=document.getElementById('copyToast');
+    t.classList.add('show');
+    setTimeout(function(){t.classList.remove('show');},1800);
+  });
+}
+
+function runFreeDiag(){
+  var cat=document.getElementById('fCat').value;
+  var region=document.getElementById('fRegion').value;
+  var gu=document.getElementById('fGu').value;
+  var dong=document.getElementById('fDong').value.trim();
+  var errEl=document.getElementById('formError');
+
+  if(!cat||!region||!gu){
+    errEl.style.display='block';
+    setTimeout(function(){errEl.style.display='none';},3000);
+    return;
+  }
+  errEl.style.display='none';
+
+  var btn=document.getElementById('diagBtn');
+  btn.disabled=true;btn.textContent='분석 중...';
+  setTimeout(function(){
+    btn.disabled=false;btn.textContent='무료 상권분석 시작 →';
+    renderResult(cat,region,gu,dong);
+  },700);
+}
+
+function renderResult(cat,region,gu,dong){
+  var catData=GU_DATA[region]&&GU_DATA[region][cat];
+  var guData=catData?catData.by_gu.find(function(g){return g.구===gu;}):null;
+  var rank=catData?catData.by_gu.findIndex(function(g){return g.구===gu;})+1:0;
+  var grade=guData?guData.등급:'보통';
+  var count=guData?guData.점포수:0;
+  var total=catData?catData.total:0;
+  var catLabel=CAT_LABELS[cat];
+  var loc=dong||gu;
+
+  var gc=grade==='과열'?'#f43f5e':grade==='보통'?'#f59e0b':'#3DFFC0';
+  var gradeClass=grade==='과열'?'hot':grade==='보통'?'mid':'rare';
+  var rarityScore=grade==='희소'?88:grade==='보통'?58:28;
+  var blueScore=grade==='희소'?85:grade==='보통'?55:22;
+  var sharePercent=total?((count/total)*100).toFixed(1):'0';
+  var kw=getKeywords(cat,gu,dong);
+  var bench=BENCHMARK[cat];
+
+  var gradeMsg=grade==='과열'
+    ?'경쟁이 매우 치열한 지역입니다. 단순 키워드로는 검색 상단 진입이 어렵습니다.<br>상황·랜드마크 키워드로 롱테일 공략이 필수입니다.'
+    :grade==='보통'
+    ?'평균 경쟁 구간입니다. 장소·상황 키워드를 번갈아 포스팅하면 월 2건으로 상위 선점이 가능합니다.'
+    :'경쟁이 적은 블루오션입니다. <strong style="color:#3DFFC0">'+gu+' 대표 '+catLabel+'</strong> 포지셔닝 골든타임입니다.';
+
+  function makeTags(list,cls){
+    return list.map(function(k){return'<span class="kw-tag '+cls+'" onclick="copyKw(\''+k.replace(/'/g,"\\'")+'\')" title="클릭하면 복사됩니다">'+k+'</span>';}).join('');
+  }
+  function makeBenchRows(items){
+    return items.map(function(item){return'<div class="bench-row"><span class="bench-metric">'+item.m+'</span><span class="bench-vals"><span class="bench-top">권장 '+item.top+'</span><span class="bench-avg">평균 '+item.avg+'</span></span></div>';}).join('');
+  }
+
+  var html=
+    '<div class="grade-banner '+gradeClass+'">'+
+      '<div style="font-family:DM Mono,monospace;font-size:11px;letter-spacing:2px;color:'+gc+';margin-bottom:10px">'+region+' '+gu+' · '+catLabel+' · 소진공 실측 데이터</div>'+
+      '<div class="grade-num" style="color:'+gc+'">'+grade+'</div>'+
+      '<div class="grade-label" style="margin-top:8px">'+region+' 25개 구 중 <strong style="color:#fff">'+rank+'위</strong> · '+gu+' 내 동종 업소 <strong style="color:#fff">'+count.toLocaleString()+'개</strong></div>'+
+      '<div style="font-size:12px;color:var(--text3);margin-top:6px">서울 전체 '+total.toLocaleString()+'개 · '+gu+' 점유율 '+sharePercent+'%</div>'+
+    '</div>'+
+    '<div class="alert-info">💡 <div>'+gradeMsg+'</div></div>'+
+    '<div class="kw-section" style="margin-bottom:12px">'+
+      '<div class="kw-section-title" style="color:var(--accent)">📊 상권 지수</div>'+
+      '<div class="stat-bar"><div class="stat-bar-label"><span>업종 희소성 지수</span><span style="color:var(--accent)">'+rarityScore+'점</span></div><div class="stat-bar-track"><div class="stat-bar-fill" id="bar1" style="width:0%"></div></div></div>'+
+      '<div class="stat-bar"><div class="stat-bar-label"><span>블루오션 가능성</span><span style="color:var(--accent)">'+blueScore+'점</span></div><div class="stat-bar-track"><div class="stat-bar-fill" id="bar2" style="width:0%"></div></div></div>'+
+    '</div>'+
+    '<div class="kw-section">'+
+      '<div class="kw-section-title" style="color:var(--accent)">📍 장소 기반 키워드</div>'+
+      '<div style="font-size:11px;color:var(--text3);margin-bottom:10px">지역+업종 직접 검색 — 업종을 알고 찾는 고객</div>'+
+      '<div class="kw-tags">'+makeTags(kw.place,'place')+'</div>'+
+      '<div class="kw-hint">💡 클릭하면 키워드가 복사됩니다</div>'+
+    '</div>'+
+    '<div class="kw-section">'+
+      '<div class="kw-section-title" style="color:var(--accent3)">💬 상황 기반 키워드 (고전환)</div>'+
+      '<div style="font-size:11px;color:var(--text3);margin-bottom:10px">고객의 문제·상황으로 검색 — 경쟁 적고 전환율 높음</div>'+
+      '<div class="kw-tags">'+makeTags(kw.situation,'situ')+'</div>'+
+      '<div class="kw-hint">💡 이 키워드를 블로그 제목에 넣으면 검색 상단 진입 가능성이 높아집니다</div>'+
+    '</div>'+
+    '<div class="kw-section">'+
+      '<div class="kw-section-title" style="color:var(--text2)">🗺️ 랜드마크 기반 키워드</div>'+
+      '<div style="font-size:11px;color:var(--text3);margin-bottom:10px">역·공원·번화가 연계 — 이동 중 찾는 고객</div>'+
+      '<div class="kw-tags">'+makeTags(kw.landmark,'land')+'</div>'+
+    '</div>'+
+    '<div class="bench-preview">'+
+      '<div style="font-size:11px;font-family:DM Mono,monospace;color:var(--accent);letter-spacing:1.5px;margin-bottom:4px">📊 '+catLabel+' 권장 기준표 (미리보기)</div>'+
+      '<div style="font-size:11px;color:var(--text3);margin-bottom:14px">전체 진단에서 내 매장과 1:1 대조 제공</div>'+
+      makeBenchRows(bench.items)+
+    '</div>'+
+    '<div class="cta-box">'+
+      '<div style="font-family:DM Mono,monospace;font-size:11px;letter-spacing:2px;color:var(--accent);margin-bottom:8px">MITGEUL v1.0 · 파일럿 특가</div>'+
+      '<div style="font-size:16px;font-weight:700;color:#fff;margin-bottom:4px">지금 바로 전체 진단 받기</div>'+
+      '<div style="font-size:13px;color:var(--text2);line-height:1.75">사업기준 점검 · 매장 자가진단 · 상권분석 · 리포트 제공<br>위 키워드 전략 + 맞춤 포스팅 설계 가이드 포함</div>'+
+      '<div class="cta-price"><span class="cta-old">100,000원</span><span class="cta-new">30,000원</span></div>'+
+      '<div style="font-size:12px;color:var(--accent4);font-weight:600;margin-bottom:16px">⏰ 파일럿 특가 · 선착순 마감 · 2026년 6월 30일까지</div>'+
+      '<div style="margin-bottom:12px"><a class="btn-cta" href="index.html">전체 진단 시작하기 →</a></div>'+
+      '<a class="btn-kakao" href="http://pf.kakao.com/_ftVan" target="_blank">카카오톡으로 결제 문의하기</a>'+
+      '<div style="margin-top:16px;padding:12px 16px;border-radius:10px;background:rgba(61,255,192,0.06);border:1px solid rgba(61,255,192,0.2);font-size:12px;color:var(--text2);line-height:1.8">'+
+        '🎁 전체 진단 결과 저장 시 <strong style="color:#fff">1:1 비대면 코칭 30분 이용권(정가 30만원)</strong> 증정<br>'+
+        '<span style="font-size:11px;color:var(--text3)">선착순 10명 · 진단 완료 후 카카오톡 발송</span>'+
+      '</div>'+
+    '</div>';
+
+  var area=document.getElementById('resultArea');
+  area.innerHTML=html;
+  area.style.display='block';
+  setTimeout(function(){
+    var b1=document.getElementById('bar1');var b2=document.getElementById('bar2');
+    if(b1)b1.style.width=rarityScore+'%';
+    if(b2)b2.style.width=blueScore+'%';
+  },100);
+  area.scrollIntoView({behavior:'smooth',block:'start'});
+}
+</script>
+</body>
+</html>
